@@ -1,10 +1,10 @@
 import * as THREE from "https://cdn.skypack.dev/three@0.130.0";
 import { SVGLoader } from "https://cdn.skypack.dev/three@0.130.0/examples/jsm/loaders/SVGLoader.js";
 
-const fillMaterial = new THREE.MeshBasicMaterial({ color: "#C05050" });
 const stokeMaterial = new THREE.LineBasicMaterial({ color: "#555" });
 
-export function renderSVG(extrusion, svg) {
+export function renderSVG(extrusion, svg, color) {
+  const fillMaterial = new THREE.MeshBasicMaterial({ color: color });
   const loader = new SVGLoader();
   const svgData = loader.parse(svg);
   const svgGroup = new THREE.Group();
@@ -16,7 +16,7 @@ export function renderSVG(extrusion, svg) {
 
     shapes.forEach((shape) => {
       const meshGeometry = new THREE.ExtrudeBufferGeometry(shape, {
-        depth: extrusion,
+        depth: (extrusion / 10) * 2,
         bevelEnabled: false
       });
       const linesGeometry = new THREE.EdgesGeometry(meshGeometry);
@@ -37,7 +37,7 @@ export function renderSVG(extrusion, svg) {
     item.position.x = xOffset;
     item.position.y = yOffset;
   });
-  svgGroup.rotateX(-Math.PI / 2);
+  // svgGroup.rotateX(-Math.PI / 2);
 
   return {
     object: svgGroup,
