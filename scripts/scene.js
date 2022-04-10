@@ -1,5 +1,7 @@
-import * as THREE from "https://cdn.skypack.dev/three@0.130.0";
-import { OrbitControls } from "https://cdn.skypack.dev/three@0.130.0/examples/jsm/controls/OrbitControls.js";
+import * as THREE from "three";
+import { OrbitControls } from "orbit";
+import { hoverFun } from "./hoverFunction.js";
+import { onPointerMove, pointer } from "./pointerMove.js";
 
 export function setupScene(container) {
   const scene = new THREE.Scene();
@@ -17,6 +19,8 @@ export function setupScene(container) {
     renderer.render(scene, camera);
     controls.update();
 
+    hoverFun(pointer, scene, camera)
+
     requestAnimationFrame(animate);
   };
 
@@ -33,7 +37,13 @@ export function setupScene(container) {
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
   });
+
+  window.addEventListener('pointermove', onPointerMove);
+
+
   animate();
+
+
 
   return { camera, controls, scene };
 };

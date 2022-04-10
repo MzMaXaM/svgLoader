@@ -8,7 +8,7 @@ const focusButton = document.querySelector("#focus");
 const { scene, camera, controls } = setupScene(app);
 
 countries.forEach(element => {
-  const { object, update } = renderSVG(element.depths, element.paths, element.color);
+  const { object, update } = renderSVG(element.depths, element.paths, element.color, element.name);
 
   scene.add(object);
 });
@@ -16,4 +16,6 @@ countries.forEach(element => {
 
 focusButton.addEventListener("click", () => {
   fitCameraToObject(camera, scene, controls);
+  console.log(scene)
 });
+
