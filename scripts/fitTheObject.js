@@ -1,4 +1,4 @@
-import { Box3, Vector3 } from "https://cdn.skypack.dev/three@0.130.0"
+import { Box3, Vector3 } from "three"
 
 export function fitCameraToObject(camera, object, controls) {
   const boundingBox = new Box3().setFromObject(object);
@@ -18,4 +18,4 @@ export function fitCameraToObject(camera, object, controls) {
   camera.position.z = cameraZ;
   camera.far = cameraToFarEdge * 3;
   camera.updateProjectionMatrix();
-};
+}
